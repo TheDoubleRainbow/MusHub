@@ -1,0 +1,101 @@
+body{
+    background: whitesmoke;
+}
+header{
+    width: 100%;
+    background: steelblue;
+    height: 50px;
+    text-align: center;
+}
+#app-name{
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    position: relative;
+    top: 3px;
+}
+main{
+    width: 640px;
+    min-height: 400px;
+    box-shadow: #cccccc 0px 0px 2px;
+    margin: 0 auto;
+    margin-top: 50px;
+    border-radius: 5px;
+    background: white;
+}
+#header{
+    border-radius: 5px 5px 0px 0px;
+    background: steelblue;
+    width: 100%;
+    min-height: 60px;
+}
+#rate{
+    width: 100%;
+    min-height: 10px;
+    position: relative;
+    top: 5px;
+    padding-left: 20px;
+    color: steelblue;
+    margin-bottom: 9px;
+}
+#name{
+    float: left;
+    margin: 0 auto;
+    width: 520px;
+    color: white;
+    font-size: 30px;
+    padding-top: 8px;
+    padding-left: 20px;
+}
+#sort-by{
+    float: right;
+    width: 120px;
+    margin-top: 13px;
+}
+.rated, .unrated{
+    background: steelblue;
+    border-radius: 100%;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    margin-right: 5px;
+    position: relative;
+    top:2px;
+
+}
+.unrated *{
+    background: white;
+    border-radius: 100%;
+    width: 8px;
+    height: 8px;
+    position: relative;
+    top:2px;
+    left: 2px;
+}
+.song {
+    width: 100%;
+    min-height: 100px;
+    border-bottom: solid 1px lightgrey;
+}
+.play video {
+    height: 30px;
+    width: 640px;
+    position: relative;
+    top: 9px;
+}
+.song-name, .song-data-genre, .song-data-album{
+    width: 100%;
+    min-height: 10px;
+    position: relative;
+    top: 5px;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    color: steelblue;
+}
+.song-main-data{
+    margin-left: 140px;
+}
+.song-data, .song-main-data{
+    display: inline-block;
+    width: 180px;
+}

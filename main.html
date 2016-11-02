@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/desing.js"></script>
+</head>
+<body ng-app="MusHub">
+<!-- <header>
+<span id="app-name">Mus Hub</span>
+</header> -->
+<main ng-controller="MainController">
+    <div id="header">
+        <div id="name">MusHub</div>
+        <div id="sort-by">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort by
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a ng-click="ord = '-rating'" href="#">Rating</a></li>
+                    <li><a ng-click="ord = 'name'" href="#">Name</a></li>
+                    <li><a ng-click="ord = 'genre'" href="#">Genre</a></li>
+                    <li><a ng-click="ord = 'album'" href="#">Album</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="song-list">
+        <div class="song" ng-repeat="song in items | orderBy : ord">
+            <div class="song-main-data">
+                <div class="song-name">Name: {{song.name}}</div>
+                <div id="rate">Rating: {{song.rating}} <!--<div class="rated"><div></div></div><div class="rated"><div></div></div><div class="rated"><div></div></div><div class="unrated"><div></div></div><div class="unrated"><div></div></div>--> </div>
+            </div>
+            <div class="song-data">
+                <div class="song-data-genre">Genre: {{song.genre}}</div>
+                <div class="song-data-album">Album: {{song.album}}</div>
+            </div>
+            <div class="play"><video controls="" name="media"><source src="" type="audio/mpeg"></video></div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
