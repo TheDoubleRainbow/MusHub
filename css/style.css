@@ -74,7 +74,7 @@ main{
 }
 .song {
     width: 100%;
-    min-height: 100px;
+    min-height: 120px;
     border-bottom: solid 1px lightgrey;
 }
 .play video {
@@ -98,4 +98,18 @@ main{
 .song-data, .song-main-data{
     display: inline-block;
     width: 180px;
+}
+.commentShow{
+    display: block;
+padding-top: 10px;
+}
+.commentShow input{
+    float: left;
+     width: 300px;
+ }
+.commentShow button{
+    width: 300px;
+}
+.commentHide{
+    display: none;
 }
