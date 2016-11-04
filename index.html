@@ -32,26 +32,31 @@
                     <li><a ng-click="ord = '-rating'" href="#">Rating</a></li>
                     <li><a ng-click="ord = 'name'" href="#">Name</a></li>
                     <li><a ng-click="ord = 'genre'" href="#">Genre</a></li>
-                    <li><a ng-click="ord = 'album'" href="#">Album</a></li>
+                    <li><a ng-click="ord = 'artist'" href="#">artist</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="sigh_in">
-            <h3>Please press button to sign in</h3>
-            <a href=""><div style="margin-top: 100px" class="btn btn-large btn-primary">Sign in</div></a>
+    <div class="sigh_in" >
+            <h3 style="position: relative; left: 30px">Please press button to sign in</h3>
+            <a ng-click="login()" href=""><div style="float: right; position: relative; top: -40px; right: 30px" class="btn btn-large btn-primary">Sign in</div></a>
+        <hr style="position: relative; left: 30px">
     </div>
     <div id="song-list">
         <div class="song" ng-repeat="song in items | orderBy : ord">
             <div class="song-main-data">
-                <div class="song-name">Name: {{song.name}}</div>
+                <div class="song-name">Name: {{song.name}} </div>
                 <div id="rate">Rating: {{song.rating}} <!--<div class="rated"><div></div></div><div class="rated"><div></div></div><div class="rated"><div></div></div><div class="unrated"><div></div></div><div class="unrated"><div></div></div>--> </div>
             </div>
             <div class="song-data">
                 <div class="song-data-genre">Genre: {{song.genre}}</div>
-                <div class="song-data-album">Album: {{song.album}}</div>
+                <div class="song-data-album">Artist: {{song.artist}}</div>
             </div>
-            <div class="play"><video controls="" name="media"><source src="" type="audio/mpeg"></video></div>
+            <div class="play"><video onpause="music.pause(this)" onplay="music.play(this)" controls="" id="{{song.id}}" nameS = '{{song.name}}' name="media"><source src="{{song.link | trusted}}" type="audio/mpeg" /></video></div>
+            <div name="{{song.name}}" class="commentHide">
+                <input type="text" nameT="{{song.name}}" class="form-control commentText"><br/><br/>
+                <button class="btn btn-default" nameB="{{song.name}}">Send</button>
+            </div>
         </div>
     </div>
 </main>

@@ -1,73 +1,97 @@
-var items = new Array();
+var music = {};
 var app = angular.module("MusHub" ,[]);
-app.controller("MainController", ["$scope", "orderByFilter", function($scope, orderBy){
-    $scope.items = items;/*[
-        {
+app.filter('trusted', ['$sce', function ($sce) {
+    return function(url) {
+        return $sce.trustAsResourceUrl(url);
+    };
+}]);
+app.controller("MainController", [ "$scope", "orderByFilter", function($scope, orderBy){
+    
+    function auth(response) {
+      if (response.session) {
+        var items = [];
+        //$scope.items = [];
+          //id = response.session.mid;
+            VK.Api.call('audio.get', {count: '20', offset: 0}, function(r) {
+                if(r.response) {
+                    console.log("response")
+                    for(var i = 0; i < r.response.length; i++){
+                        var a = r.response[i];
+                        items.push({
+                            name: a.title,
+                            rating: 3,
+                            genre: a.genre,
+                            artist: a.artist,
+                            link: a.url
+                        })
+                    }
+                    $scope.items = items;
+                    console.log($scope.items);
+                }
+            });
+        }
+    }
+    $scope.login = function(){VK.Auth.login(auth, VK.access.AUDIO)};
+
+    $scope.currentSongEl = 'none';
+    $scope.currentSong = 'none';
+    music.play = function (a){
+        if($scope.currentSongEl!='none' && $scope.currentSong != a.getAttribute('nameS')){
+            document.getElementsByName($scope.currentSong)[0].className = 'commentHide';
+            $scope.currentSongEl.load();
+        }
+        $scope.start = new Date();
+        $scope.currentSongEl = a;
+        $scope.currentSong = a.getAttribute('nameS');
+        document.getElementsByName($scope.currentSong)[0].className = 'commentShow';
+
+
+    };
+    music.pause = function(){
+        //$scope.currentSongEl = 'none';
+    };
+       /*$scope.items =  [{
+            id: '0',
             name: "Song name1",
             rating: 3,
             genre: "asdasdsad",
-            album: "asdasdad",
-            link: "https://cs1-17v4.vk-cdn.net/p5/e313b7ab6ee197.mp3?extra=IVIfFu9vutBJd4xD2mFUako3iNE9gfd0xwcPoT6NPKCjMp_iOCfwypfVpzkUe0CfZ4ViYX5tKhl8Y87G0q_xkY-5nHKB1n28aZO88b8sZDrz6qaz5rvEgwqJgPSN59qUxoJKby6XomunCK0"
+            artist: "asdasdad",
+            link: "https://cs1-34v4.vk-cdn.net/p16/c542ed176b9244.mp3?extra=rAILO6qL1K5i2ufVN02MJg-buQhghvGrv5GjQ9rtH5OMCQkbCCiUDNH2OGk4nKIxqbWqrv8Hl4VwD5LnYqbmc5PM6_wSS9kC_lkr85i-aDE9074QGq3muMColaaJFbEd7ixGpkjogTYE2is"
         },
         {
+            id: '1',
             name: "Song name2",
             rating: 4,
             genre: "xsxse",
-            album: "qwewelbum",
-            link: "https://cs1-17v4.vk-cdn.net/p5/e313b7ab6ee197.mp3?extra=IVIfFu9vutBJd4xD2mFUako3iNE9gfd0xwcPoT6NPKCjMp_iOCfwypfVpzkUe0CfZ4ViYX5tKhl8Y87G0q_xkY-5nHKB1n28aZO88b8sZDrz6qaz5rvEgwqJgPSN59qUxoJKby6XomunCK0"
+            artist: "qwewelbum",
+            link: "https://cs1-34v4.vk-cdn.net/p16/c542ed176b9244.mp3?extra=rAILO6qL1K5i2ufVN02MJg-buQhghvGrv5GjQ9rtH5OMCQkbCCiUDNH2OGk4nKIxqbWqrv8Hl4VwD5LnYqbmc5PM6_wSS9kC_lkr85i-aDE9074QGq3muMColaaJFbEd7ixGpkjogTYE2is"
         },{
+               id: '2',
             name: "Song name3",
             rating: 5,
             genre: "Srterte",
-            album: "Song`s album",
-            link: "https://cs1-17v4.vk-cdn.net/p5/e313b7ab6ee197.mp3?extra=IVIfFu9vutBJd4xD2mFUako3iNE9gfd0xwcPoT6NPKCjMp_iOCfwypfVpzkUe0CfZ4ViYX5tKhl8Y87G0q_xkY-5nHKB1n28aZO88b8sZDrz6qaz5rvEgwqJgPSN59qUxoJKby6XomunCK0"
-        },{
+               artist: "Song`s album",
+               link: "https://cs1-34v4.vk-cdn.net/p16/c542ed176b9244.mp3?extra=rAILO6qL1K5i2ufVN02MJg-buQhghvGrv5GjQ9rtH5OMCQkbCCiUDNH2OGk4nKIxqbWqrv8Hl4VwD5LnYqbmc5PM6_wSS9kC_lkr85i-aDE9074QGq3muMColaaJFbEd7ixGpkjogTYE2is"
+           },{
+               id: '3',
             name: "Song name4",
             rating: 1,
             genre: "gggasdfg",
-            album: "ccascca",
-            link: "https://cs1-17v4.vk-cdn.net/p5/e313b7ab6ee197.mp3?extra=IVIfFu9vutBJd4xD2mFUako3iNE9gfd0xwcPoT6NPKCjMp_iOCfwypfVpzkUe0CfZ4ViYX5tKhl8Y87G0q_xkY-5nHKB1n28aZO88b8sZDrz6qaz5rvEgwqJgPSN59qUxoJKby6XomunCK0"
-        },{
+               artist: "ccascca",
+               link: "https://cs1-34v4.vk-cdn.net/p16/c542ed176b9244.mp3?extra=rAILO6qL1K5i2ufVN02MJg-buQhghvGrv5GjQ9rtH5OMCQkbCCiUDNH2OGk4nKIxqbWqrv8Hl4VwD5LnYqbmc5PM6_wSS9kC_lkr85i-aDE9074QGq3muMColaaJFbEd7ixGpkjogTYE2is"
+           },{
+               id: '4',
             name: "Song name5",
             rating: 5,
             genre: "werwer3r",
-            album: "basbdb",
-            link: "https://cs1-17v4.vk-cdn.net/p5/e313b7ab6ee197.mp3?extra=IVIfFu9vutBJd4xD2mFUako3iNE9gfd0xwcPoT6NPKCjMp_iOCfwypfVpzkUe0CfZ4ViYX5tKhl8Y87G0q_xkY-5nHKB1n28aZO88b8sZDrz6qaz5rvEgwqJgPSN59qUxoJKby6XomunCK0"
-        }
+               artist: "basbdb",
+               link: "https://cs1-34v4.vk-cdn.net/p16/c542ed176b9244.mp3?extra=rAILO6qL1K5i2ufVN02MJg-buQhghvGrv5GjQ9rtH5OMCQkbCCiUDNH2OGk4nKIxqbWqrv8Hl4VwD5LnYqbmc5PM6_wSS9kC_lkr85i-aDE9074QGq3muMColaaJFbEd7ixGpkjogTYE2is"
+           }
     ];*/
 }]);
- 
 window.onload = function(){
     VK.init({
-        apiId: 5702688
+        apiId: 5702466
         });
-    var id = 0;
-    function authInfo(response) {
-      if (response.session) {
-          id = response.session.mid;
-      }
-    }
-    //VK.Auth.getLoginStatus(authInfo);
-    VK.Auth.login(authInfo, "audio");
-
-    var resp = 0;
-    var onlogin = function(){
-        var count;
-        VK.Api.call('audio.get', {count: '20'}, function(r) {
-            if(r.response) {
-                console.log(r);
-
-            }
-        });
-        /*VK.Api.call('audio.get', {count: '2', owner_id: '224641141'}, function(r) {
-            if(r.response) {
-                //console.log(r.response);
-
-            }
-        });*/
-    }
-    
-        VK.Observer.subscribe("auth.login", onlogin)
-
-    
 }
+
