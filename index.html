@@ -55,7 +55,7 @@
             <div class="play"><video onpause="music.pause(this)" onplay="music.play(this)" controls="" id="{{song.id}}" nameS = '{{song.name}}' name="media"><source src="{{song.link | trusted}}" type="audio/mpeg" /></video></div>
             <div name="{{song.name}}" class="commentHide">
                 <input type="text" nameT="{{song.name}}" class="form-control commentText"><br/><br/>
-                <button class="btn btn-default" nameB="{{song.name}}">Send</button>
+                <button class="btn btn-default" ng-click="sendComment()" ng-model="comment" nameB="{{song.name}}">Send</button>
             </div>
         </div>
     </div>

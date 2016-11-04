@@ -5,7 +5,7 @@ app.filter('trusted', ['$sce', function ($sce) {
         return $sce.trustAsResourceUrl(url);
     };
 }]);
-app.controller("MainController", [ "$scope", "orderByFilter", function($scope, orderBy){
+app.controller("MainController", [ "$scope", "orderByFilter", function($http, $scope, orderBy){
     //$scope.items = items;/*[
     $scope.currentSongEl = 'none';
     $scope.currentSong = 'none';
@@ -62,6 +62,7 @@ app.controller("MainController", [ "$scope", "orderByFilter", function($scope, o
                link: "https://cs1-34v4.vk-cdn.net/p16/c542ed176b9244.mp3?extra=rAILO6qL1K5i2ufVN02MJg-buQhghvGrv5GjQ9rtH5OMCQkbCCiUDNH2OGk4nKIxqbWqrv8Hl4VwD5LnYqbmc5PM6_wSS9kC_lkr85i-aDE9074QGq3muMColaaJFbEd7ixGpkjogTYE2is"
            }
     ];
+    $scope.comment = '';
 
     // */
 }]);
